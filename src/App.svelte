@@ -53,10 +53,10 @@
       Constants.anionIndices[Constants.anionNames.indexOf(stringArray[1])];
     var formulaArray = [ionSymbol(cation), "", "", ionSymbol(anion), "", ""];
     var HCF = getHCF(ionCharge(cation), -ionCharge(anion));
-    if (-ionCharge(anion) / HCF != 1) {
+    if (-ionCharge(anion) != HCF) {
       formulaArray[1] = -ionCharge(anion) / HCF;
     }
-    if (ionCharge(cation) / HCF != 1) {
+    if (ionCharge(cation) != HCF) {
       formulaArray[5] = ionCharge(cation) / HCF;
       if (
         formulaArray[3].length > 2 ||

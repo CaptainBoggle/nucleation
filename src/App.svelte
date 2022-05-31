@@ -40,7 +40,12 @@
   }
 
   function saltCommonNameToProperName(commonName) {
-    return "egg" + commonName;
+	var stringArray = commonName.split(" ");
+	if (Constants.commonName.indexOf(stringArray[0]) > -1) {
+		console.log();
+		return [Constants.properName[Constants.commonName.indexOf(stringArray[0])], stringArray[1]].join(" ");
+	}	
+    return false;
   }
 
   function saltProperNameToFormula(properName) {
@@ -134,6 +139,15 @@
     return salt;
   }
 
+  function predictPrecipitate(salt1,salt2) {
+	if (salt1.soluble && salt2.soluble) {
+		
+  }
+
+  return [salt1, salt2];
+
+
+  }
   let selectedCation = "Ca++";
   let selectedAnion = "Cl-";
 </script>

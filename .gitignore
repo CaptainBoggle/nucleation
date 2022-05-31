@@ -5,5 +5,10 @@
 .env
 .env.local
 .env.build
-
 .vercel
+.eslintrc.json
+package-lock.json
+package.json
+pnpm-lock.yaml
+rollup.config.js
+yarn.lock

@@ -47,6 +47,7 @@
 
 	
 	function saltCommonNameToProperName(commonName){
+		
 		return "egg" + commonName
 	}
 
@@ -144,7 +145,8 @@
 		{/each}
 	
 		<h2>Output</h2>
-		<p>{selectedCation} + {selectedAnion} = {reactIons(selectedCation,selectedAnion).formula}</p>
+		<p>{selectedCation} + {selectedAnion} = {JSON.stringify(reactIons(selectedCation,selectedAnion))}</p>
+		<div id="rectangle" style="--salt-colour: {(reactIons(selectedCation,selectedAnion).colour)}"></div>
 	
 	</main>
 	
@@ -162,6 +164,14 @@
 			font-size: 4em;
 			font-weight: 100;
 		}
+
+		#rectangle {
+			width: 200px;
+			height: 100px;
+
+ 			background-color: var(--salt-colour);
+				}
+  
 	
 		@media (min-width: 640px) {
 			main {

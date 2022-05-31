@@ -339,11 +339,6 @@
   "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   "version" "4.0.0"
 
-"eslint-plugin-svelte3@^4.0.0":
-  "integrity" "sha512-OIx9lgaNzD02+MDFNLw0GEUbuovNcglg+wnd/UY0fbZmlQSz7GlQiQ1f+yX0XvC07XPcDOnFcichqI3xCwp71g=="
-  "resolved" "https://registry.npmjs.org/eslint-plugin-svelte3/-/eslint-plugin-svelte3-4.0.0.tgz"
-  "version" "4.0.0"
-
 "eslint-scope@^7.1.1":
   "integrity" "sha512-QKQM/UXpIiHcLqJ5AOyIW7XZmzjkzQXYE54n1++wb0u9V/abW3l9uQnxX8Z5Xd18xyKIMTUAyQ0k1e8pz6LUrw=="
   "resolved" "https://registry.npmjs.org/eslint-scope/-/eslint-scope-7.1.1.tgz"
@@ -369,7 +364,7 @@
   "resolved" "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz"
   "version" "3.3.0"
 
-"eslint@^8.15.0", "eslint@>=5", "eslint@>=8.0.0":
+"eslint@^8.15.0", "eslint@>=5":
   "integrity" "sha512-MBndsoXY/PeVTDJeWsYj7kLZ5hQpJOfMYLsF6LicLHQWbRDG19lK5jOix4DPl8yY4SUFcE3txy86OzFLWT+yoA=="
   "resolved" "https://registry.npmjs.org/eslint/-/eslint-8.16.0.tgz"
   "version" "8.16.0"
@@ -917,10 +912,10 @@
   dependencies:
     "estree-walker" "^0.6.1"
 
-"rollup@^1.20.0||^2.0.0", "rollup@^2.0.0", "rollup@^2.30.0", "rollup@^2.72.1", "rollup@>=2.0.0", "rollup@1 || 2":
-  "integrity" "sha512-JgZiJMJkKImMZJ8ZY1zU80Z2bA/TvrL/7D9qcBCrfl2bP+HUaIw0QHUroB4E3gBpFl6CRFM1YxGbuYGtdAswbQ=="
-  "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.75.4.tgz"
-  "version" "2.75.4"
+"rollup@^1.20.0||^2.0.0", "rollup@^2.0.0", "rollup@^2.3.4", "rollup@^2.30.0", "rollup@>=2.0.0", "rollup@1 || 2":
+  "integrity" "sha512-+c+lbw1lexBKSMb1yxGDVfJ+vchJH3qLbmavR+awDinTDA2C5Ug9u7lkOzj62SCu0PKUExsW36tpgW7Fmpn3yQ=="
+  "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.64.0.tgz"
+  "version" "2.64.0"
   optionalDependencies:
     "fsevents" "~2.3.2"
 
@@ -1045,7 +1040,7 @@
     "@types/papaparse" "^5.3.1"
     "papaparse" "^5.3.1"
 
-"svelte@^3.2.0", "svelte@^3.29.0", "svelte@^3.48.0", "svelte@>=3.5.0":
+"svelte@^3.29.0", "svelte@^3.48.0", "svelte@>=3.5.0":
   "integrity" "sha512-fN2YRm/bGumvjUpu6yI3BpvZnpIm9I6A7HR4oUNYd7ggYyIwSA/BX7DJ+UXXffLp6XNcUijyLvttbPVCYa/3xQ=="
   "resolved" "https://registry.npmjs.org/svelte/-/svelte-3.48.0.tgz"
   "version" "3.48.0"

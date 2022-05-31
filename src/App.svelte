@@ -85,9 +85,7 @@
 
   function ionGridRef(ionName) {
     // returns the grid reference of an ion as an integer given the shorthand name string.
-    return ionCharge(ionName) > 0
-      ? Constants.cationIndices.indexOf(ionName)
-      : Constants.anionIndices.indexOf(ionName); // if the ion is a cation, return the index of the cation in the cation array, otherwise return the index of the anion in the anion array.
+    return ionCharge(ionName) > 0 ? Constants.cationIndices.indexOf(ionName) : Constants.anionIndices.indexOf(ionName); // if the ion is a cation, return the index of the cation in the cation array, otherwise return the index of the anion in the anion array.
   }
 
   function reactIons(ion1, ion2) {

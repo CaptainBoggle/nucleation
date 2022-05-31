@@ -4,6 +4,7 @@ specifiers:
   '@rollup/plugin-commonjs': ^17.1.0
   '@rollup/plugin-node-resolve': ^11.2.1
   eslint: ^8.16.0
+  eslint-plugin-svelte3: ^4.0.0
   rollup: ^2.75.4
   rollup-plugin-css-only: ^3.1.0
   rollup-plugin-livereload: ^2.0.5
@@ -23,6 +24,7 @@ devDependencies:
   '@rollup/plugin-commonjs': 17.1.0_rollup@2.75.4
   '@rollup/plugin-node-resolve': 11.2.1_rollup@2.75.4
   eslint: 8.16.0
+  eslint-plugin-svelte3: 4.0.0_vypdqzeyqutkgs6qzc7qod4c64
   rollup: 2.75.4
   rollup-plugin-css-only: 3.1.0_rollup@2.75.4
   rollup-plugin-livereload: 2.0.5
@@ -410,6 +412,16 @@ packages:
   /escape-string-regexp/4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /eslint-plugin-svelte3/4.0.0_vypdqzeyqutkgs6qzc7qod4c64:
+    resolution: {integrity: sha512-OIx9lgaNzD02+MDFNLw0GEUbuovNcglg+wnd/UY0fbZmlQSz7GlQiQ1f+yX0XvC07XPcDOnFcichqI3xCwp71g==}
+    peerDependencies:
+      eslint: '>=8.0.0'
+      svelte: ^3.2.0
+    dependencies:
+      eslint: 8.16.0
+      svelte: 3.48.0
     dev: true
 
   /eslint-scope/7.1.1:

@@ -30,8 +30,7 @@
       [["S","AntiqueWhite"],["S","Yellow"],["S","DarkBrown"],["R","FeI2","S","GhostWhite", "iron(II) iodide"],["I","DarkOrange"],["S","Red"],["S","Red"],["S","IndianRed"],["R","Fe2O3","I","Red", "iron(III) oxide"],["S","Orange"],["I","Peru"]],
       [["S","GhostWhite"],["I","Ivory"],["I","Khaki"],["I","Yellow"],["I","Peru"],["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Peru"]]
     ]
-	
-	}
+	};
 
   function getHCF(x, y) {
     // find highest common factor of two numbers
@@ -40,11 +39,14 @@
   }
 
   function saltCommonNameToProperName(commonName) {
-	var stringArray = commonName.split(" ");
-	if (Constants.commonName.indexOf(stringArray[0]) > -1) {
-		console.log();
-		return [Constants.properName[Constants.commonName.indexOf(stringArray[0])], stringArray[1]].join(" ");
-	}	
+    var stringArray = commonName.split(" ");
+    if (Constants.commonName.indexOf(stringArray[0]) > -1) {
+      console.log();
+      return [
+        Constants.properName[Constants.commonName.indexOf(stringArray[0])],
+        stringArray[1],
+      ].join(" ");
+    }
     return false;
   }
 
@@ -90,7 +92,9 @@
 
   function ionGridRef(ionName) {
     // returns the grid reference of an ion as an integer given the shorthand name string.
-    return ionCharge(ionName) > 0 ? Constants.cationIndices.indexOf(ionName) : Constants.anionIndices.indexOf(ionName); // if the ion is a cation, return the index of the cation in the cation array, otherwise return the index of the anion in the anion array.
+    return ionCharge(ionName) > 0
+      ? Constants.cationIndices.indexOf(ionName)
+      : Constants.anionIndices.indexOf(ionName); // if the ion is a cation, return the index of the cation in the cation array, otherwise return the index of the anion in the anion array.
   }
 
   function reactIons(ion1, ion2) {
@@ -139,14 +143,11 @@
     return salt;
   }
 
-  function predictPrecipitate(salt1,salt2) {
-	if (salt1.soluble && salt2.soluble) {
-		
-  }
+  function predictPrecipitate(salt1, salt2) {
+    if (salt1.soluble && salt2.soluble) {
+    }
 
-  return [salt1, salt2];
-
-
+    return [salt1, salt2];
   }
   let selectedCation = "Ca++";
   let selectedAnion = "Cl-";
@@ -154,54 +155,85 @@
 
 <main>
   <h2>Cation</h2>
-  {#each Constants.cationIndices as cation}
-    <label>
-      <input type="radio" bind:group={selectedCation} value={cation} />
-      {cation}
-    </label>
-  {/each}
-
+  <div class="flex">
+    {#each Constants.cationIndices as cation}
+      <label>
+        <input type="radio" bind:group={selectedCation} value={cation} />
+        {cation}
+      </label>
+    {/each}
+  </div>
+  
   <h2>Anion</h2>
-  {#each Constants.anionIndices as anion}
-    <label>
-      <input
-        class="radio"
-        type="radio"
-        bind:group={selectedAnion}
-        value={anion}
-      />
-      {anion}
-    </label>
-  {/each}
+  <div class="flex">
+    {#each Constants.anionIndices as anion}
+      <label>
+        <input type="radio" bind:group={selectedAnion} value={anion} />
+        {anion}
+      </label>
+    {/each}
+  </div>
 
   <h2>Output</h2>
   <p>
-    {selectedCation} and {selectedAnion} = {reactIons(
-      selectedCation,
-      selectedAnion
-    ).formula}
-	({reactIons(selectedCation, selectedAnion).proper})
-  </p>
-  <p>
-	  soluble = {reactIons(selectedCation, selectedAnion).soluble}
+    {selectedCation} <span style="font-size: 14pt; font-weight: bold;">+</span> {selectedAnion}
   </p>
   <div
     id="rectangle"
     style="--salt-colour: {reactIons(selectedCation, selectedAnion).colour}"
-  />
+  >
+    <h2 class="verticalcenter">{reactIons(selectedCation, selectedAnion).formula}</h2>
+    <p class="underCenter">({reactIons(selectedCation, selectedAnion).proper})</p>
+  </div>
+  <p>
+    soluble = {reactIons(selectedCation, selectedAnion).soluble}
+  </p>
 </main>
 
 <style>
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    clear: both;
+  }
+  .verticalcenter {
+    text-align:center;
+    position: relative;
+    top: 44%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 20pt;
+  }
+  .underCenter {
+    text-align:center;
+    position: relative;
+    transform: translateY(+170%);
+    font-size: 10pt;
+  }
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 33.333333%;
+    justify-content: center;
+  }
   main {
     text-align: center;
     padding: 1em;
+    padding-top: 0;
     max-width: 240px;
     margin: 0 auto;
   }
-
+  p {
+    margin-top: 0;
+    font-size: 12pt;
+  }
   label {
     display: inline;
     padding-right: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   #rectangle {
@@ -211,6 +243,7 @@
     border-radius: 8px;
     border: 2px solid black;
     background-color: var(--salt-colour);
+    font-size: 20pt;
   }
 
   @media (min-width: 640px) {

@@ -154,31 +154,24 @@
 </script>
 
 <main>
-  <div class="row">
-    <div class="column">
-      <h2>Cation</h2>
-      {#each Constants.cationIndices as cation}
-        <label>
-          <input type="radio" bind:group={selectedCation} value={cation} />
-          {cation}
-        </label>
-      {/each}
-    </div>
-
-    <div class="column">
-      <h2>Anion</h2>
-      {#each Constants.anionIndices as anion}
-        <label>
-          <input
-            class="radio"
-            type="radio"
-            bind:group={selectedAnion}
-            value={anion}
-          />
-          {anion}
-        </label>
-      {/each}
-    </div>
+  <h2>Cation</h2>
+  <div class="flex">
+    {#each Constants.cationIndices as cation}
+      <label>
+        <input type="radio" bind:group={selectedCation} value={cation} />
+        {cation}
+      </label>
+    {/each}
+  </div>
+  
+  <h2>Anion</h2>
+  <div class="flex">
+    {#each Constants.anionIndices as anion}
+      <label>
+        <input type="radio" bind:group={selectedAnion} value={anion} />
+        {anion}
+      </label>
+    {/each}
   </div>
 
   <h2>Output</h2>
@@ -190,48 +183,42 @@
     style="--salt-colour: {reactIons(selectedCation, selectedAnion).colour}"
   >
     {reactIons(selectedCation, selectedAnion).formula}
+    <p>({reactIons(selectedCation, selectedAnion).proper})</p>
   </div>
   <p>
-    ({reactIons(selectedCation, selectedAnion).proper})
-    <br />
     soluble = {reactIons(selectedCation, selectedAnion).soluble}
   </p>
 </main>
 
 <style>
   h2 {
-    margin-top:0;
+    margin-top: 0;
+    margin-bottom: 0;
+    clear: both;
   }
-  .radio {
-    
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 33.333333%;
+    justify-content: center;
   }
-  .row {
-    width: 80%;
-    margin: auto;
-  }
-  .column {
-  float: left;
-  width: 46%;
-  padding-left: 2%;
-  padding-right: 2%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
   main {
     text-align: center;
     padding: 1em;
+    padding-top: 0;
     max-width: 240px;
     margin: 0 auto;
   }
-
+  p {
+    margin-top: 0;
+    font-size: 12pt;
+  }
   label {
     display: inline;
     padding-right: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   #rectangle {

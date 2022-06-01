@@ -176,14 +176,14 @@
 
   <h2>Output</h2>
   <p>
-    {selectedCation} + {selectedAnion}
+    {selectedCation} <span style="font-size: 14pt; font-weight: bold;">+</span> {selectedAnion}
   </p>
   <div
     id="rectangle"
     style="--salt-colour: {reactIons(selectedCation, selectedAnion).colour}"
   >
-    {reactIons(selectedCation, selectedAnion).formula}
-    <p>({reactIons(selectedCation, selectedAnion).proper})</p>
+    <h2 class="verticalcenter">{reactIons(selectedCation, selectedAnion).formula}</h2>
+    <p class="underCenter">({reactIons(selectedCation, selectedAnion).proper})</p>
   </div>
   <p>
     soluble = {reactIons(selectedCation, selectedAnion).soluble}
@@ -195,6 +195,21 @@
     margin-top: 0;
     margin-bottom: 0;
     clear: both;
+  }
+  .verticalcenter {
+    text-align:center;
+    position: relative;
+    top: 44%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 20pt;
+  }
+  .underCenter {
+    text-align:center;
+    position: relative;
+    transform: translateY(+170%);
+    font-size: 10pt;
   }
   .flex {
     display: flex;

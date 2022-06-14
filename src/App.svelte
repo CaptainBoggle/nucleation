@@ -1,14 +1,13 @@
 <script>
   const Constants = {
 		anionIndices: ["F-","Cl-","Br-","I-","OH-","SCN-","NO3-","C2H3O2-","CO3--","SO4--","PO4---"],
-		cationIndices: ["NH4+","H+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+"],
+		cationIndices: ["NH4+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+","H+"],
 	
 		anionNames: ["fluoride", "chloride", "bromide", "iodide", "hydroxide", "thiocyanate", "nitrate", "acetate", "carbonate", "sulfate", "phosphate"],
 		cationProperNames: ["ammonium", "hydrogen", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver"],
 		cationCommonNames: ["ammonium", "hydrogen", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese", "ferrous", "cobaltous", "nickelous", "cupric", "zinc", "mercuric", "plumbous", "chromic", "ferric", "silver"],
     reactionTable: [
       [["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"]],
-      [["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","Green"],["S","GhostWhite"],["S","GhostWhite"]],
       [["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"]],
       [["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"]],
       [["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"]],
@@ -28,7 +27,8 @@
       [["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Khaki"],["S","GhostWhite"],["S","GhostWhite"],["I","Ivory"],["I","Ivory"],["I","Ivory"]],
       [["I","DarkGreen"],["S","DarkGreen"],["S","DarkGreen"],["S","DarkGreen"],["I","Green"],["S","Green"],["S","DarkBlue"],["S","DarkGreen"],["I","LightCyan"],["I","CadetBlue"],["I","DarkOrchid"]],
       [["S","AntiqueWhite"],["S","Yellow"],["S","DarkBrown"],["R","FeI2","S","GhostWhite", "iron(II) iodide"],["I","DarkOrange"],["S","Red"],["S","Red"],["S","IndianRed"],["R","Fe2O3","I","Red", "iron(III) oxide"],["S","Orange"],["I","Peru"]],
-      [["S","GhostWhite"],["I","Ivory"],["I","Khaki"],["I","Yellow"],["I","Peru"],["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Peru"]]
+      [["S","GhostWhite"],["I","Ivory"],["I","Khaki"],["I","Yellow"],["I","Peru"],["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Peru"]],
+      [["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","Green"],["S","GhostWhite"],["S","GhostWhite"]]
     ]
 	};
 
@@ -116,21 +116,32 @@ const Beaker = {
       ions[0][1] = "+".repeat(formula.replace("(${Constants.cationIndices[i]})", "").charAt(0));
       break;
     }
-    else if (formula.includes(Constants.cationIndices[i])) { // if there are no brackets, there may be no number, so check for that
+    if (formula.includes(Constants.cationIndices[i])) { // if there are no brackets, there may be no number, so check for that
       ions[0][0] = Constants.cationIndices[i];
       ions[0][1] = isNaN(formula.replace(Constants.cationIndices[i], "").charAt(0)) ? "+" : "+".repeat(formula.replace(Constants.cationIndices[i], "").charAt(0)); 
       break;
     }
   }
-
-
   // next extract anion and its charge.
+  for (let i = 0; i < Constants.anionIndices; i++) {
+    if (formula.includes("(${Constants.anionIndices[i]})")) {
+      ions[1][0] = Constants.anionIndices[i];
+      ions[1][1] = "-".repeat(formula.split("(${Constants.anionIndices[i]})")[1].charAt(0));
+      break;
+    }
 
-  
+    if (formula.includes(Constants.anionIndices[i])) {
+      ions[1][0] = Constants.anionIndices[i];
+      formula = formula.concat("1"); // in this case, there will either be a number at the end or nothing, so we append a 1, which will be ignored if there is already a number present, or will be used if there is no number present
+      ions[1][1] = "-".repeat(formula.split(Constants.anionIndices[i])[1].charAt(0)); 
+      break;
+    }
 
+  }
   return [ions[0].join(""), ions[1].join("")];
-
 }
+
+
   function ionCharge(ionName) {
     // returns the charge of an ion as an integer given the shorthand name string.
     return (

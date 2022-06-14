@@ -33,6 +33,22 @@
 	
 	}
 
+const Beaker = {
+  solids: [],
+  solutes: [],
+
+  addSalts() { // add any number of salts to beaker
+    for (let i = 0; i < arguments.length; i++) {
+      arguments[i].soluble ? this.solids.push(arguments[i]) : this.solutes.push(arguments[i]);
+    }
+  },
+
+  reactSalts() { // react all salts in beaker
+    return true;
+  }
+
+}
+
   function getHCF(x, y) {
     // find highest common factor of two numbers
     if (y === 0) return x; // if y is zero then x is the HCF
@@ -56,23 +72,42 @@
       ];
     var anion =
       Constants.anionIndices[Constants.anionNames.indexOf(stringArray[1])];
-    var formulaArray = [ionSymbol(cation), "", "", ionSymbol(anion), "", ""];
+    var formulaArray = ["", ionSymbol(cation), "", "", "", ionSymbol(anion), "", ""];
     var HCF = getHCF(ionCharge(cation), -ionCharge(anion));
     if (-ionCharge(anion) != HCF) {
-      formulaArray[1] = -ionCharge(anion) / HCF;
+      formulaArray[3] = -ionCharge(anion) / HCF;
+      if (formulaArray[1].length > 2 ||  (formulaArray[1].length > 1 &&
+          formulaArray[1].toUpperCase() == formulaArray[1]) 
+      ) {
+        formulaArray[0] = "(";
+        formulaArray[2] = ")";
+      }
     }
     if (ionCharge(cation) != HCF) {
-      formulaArray[5] = ionCharge(cation) / HCF;
+      formulaArray[7] = ionCharge(cation) / HCF;
       if (
-        formulaArray[3].length > 2 ||
-        (formulaArray[3].length > 1 &&
-          formulaArray[3].toUpperCase() == formulaArray[3])
+        formulaArray[5].length > 2 ||
+        (formulaArray[5].length > 1 &&
+          formulaArray[5].toUpperCase() == formulaArray[5])
       ) {
-        formulaArray[2] = "(";
-        formulaArray[4] = ")";
+        formulaArray[3] = "(";
+        formulaArray[6] = ")";
       }
     }
     return formulaArray.join("");
+  }
+
+  function saltFormulaToIons(formula) { // convert formula into two ions
+// EBNF for formula:
+// number ::= 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+// cation ::= "NH4" | "H" | "Li" etc
+// anion ::= "F" | "Cl" | "Br" etc
+// formula ::= (("("<cation>")"<number>) | (<cation>[<number>]))(("("<anion>")"<number>) | (<anion>[<number>]))
+    
+    let ions = [];
+
+
+    return ions
   }
 
   function ionCharge(ionName) {
@@ -93,9 +128,10 @@
     return ionCharge(ionName) > 0 ? Constants.cationIndices.indexOf(ionName) : Constants.anionIndices.indexOf(ionName); // if the ion is a cation, return the index of the cation in the cation array, otherwise return the index of the anion in the anion array.
   }
 
-  function reactIons(ion1, ion2) {
-    console.log(ion1);
-    console.log(ion2);
+  function reactIons(ions) {
+
+    let ion1 = ions[0];
+    let ion2 = ions[1]
 
     var salt = {}; // create a salt object to store the new salt
     var cation;
@@ -139,15 +175,7 @@
     return salt;
   }
 
-  function predictPrecipitate(salt1,salt2) {
-	if (salt1.soluble && salt2.soluble) {
-		
-  }
-
-  return [salt1, salt2];
-
-
-  }
+ 
   let selectedCation = "Ca++";
   let selectedAnion = "Cl-";
 </script>
@@ -177,17 +205,17 @@
   <h2>Output</h2>
   <p>
     {selectedCation} and {selectedAnion} = {reactIons(
-      selectedCation,
-      selectedAnion
+      [selectedCation,
+      selectedAnion]
     ).formula}
-	({reactIons(selectedCation, selectedAnion).proper})
+	({reactIons([selectedCation, selectedAnion]).proper})
   </p>
   <p>
-	  soluble = {reactIons(selectedCation, selectedAnion).soluble}
+	  soluble = {reactIons([selectedCation, selectedAnion]).soluble}
   </p>
   <div
     id="rectangle"
-    style="--salt-colour: {reactIons(selectedCation, selectedAnion).colour}"
+    style="--salt-colour: {reactIons([selectedCation, selectedAnion]).colour}"
   />
 </main>
 

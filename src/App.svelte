@@ -82,7 +82,7 @@ const Beaker = {
           formulaArray[1].toUpperCase() == formulaArray[1]) 
       ) {
         formulaArray[0] = "(";
-        formulaArray[3] = ")";
+        formulaArray[2] = ")";
       }
     }
     if (ionCharge(cation) != HCF) {

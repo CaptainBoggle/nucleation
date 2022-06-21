@@ -309,7 +309,7 @@ const Beaker = {
     
     return dataTable;
 }
-  console.log((dataColourToHex(Constants.reactionTable)));
+  console.dir((dataColourToHex(Constants.reactionTable)));
   let selectedCation = "Ca++";
   let selectedAnion = "Cl-";
 </script>

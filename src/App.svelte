@@ -298,7 +298,7 @@ const Beaker = {
             }
             else { // otherwise it will be at index 3
               if (colours[dataTable[i][j][3].toLowerCase()] != 'undefined'){
-                dataTable[i][j][1] = colours[dataTable[i][j][3].toLowerCase()];
+                dataTable[i][j][3] = colours[dataTable[i][j][3].toLowerCase()];
               }  // convert
               else{
                 console.log(dataTable[i][j][3].toLowerCase())

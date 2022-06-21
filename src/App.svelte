@@ -287,7 +287,7 @@ const Beaker = {
     {
         for (let j = 0; j<dataTable[i].length; j++) // for each column
         {
-          if (dataTable[i][j][0] == "I" || data[i][j][0] == "S") // if the entry starts with I or S, the colour will be at index 1
+          if (dataTable[i][j][0] == "I" || dataTable[i][j][0] == "S") // if the entry starts with I or S, the colour will be at index 1
             {
               dataTable[i][j][1] = colours[dataTable[i][j][1].toLowerCase()]; // convert
             }

@@ -293,7 +293,7 @@ const Beaker = {
                 dataTable[i][j][1] = colours[dataTable[i][j][1].toLowerCase()];
               }  // convert
               else{
-                console.log(dataTable[i][j][1].toLowerCase())
+                return (dataTable[i][j][1].toLowerCase())
               }
             }
             else { // otherwise it will be at index 3
@@ -301,7 +301,7 @@ const Beaker = {
                 dataTable[i][j][3] = colours[dataTable[i][j][3].toLowerCase()];
               }  // convert
               else{
-                console.log(dataTable[i][j][3].toLowerCase())
+                return (dataTable[i][j][3].toLowerCase())
               }
             }
         }
@@ -309,7 +309,7 @@ const Beaker = {
     
     return dataTable;
 }
-  console.log(dataColourToHex(Constants.reactionTable));
+  console.log(toString(dataColourToHex(Constants.reactionTable)));
   let selectedCation = "Ca++";
   let selectedAnion = "Cl-";
 </script>

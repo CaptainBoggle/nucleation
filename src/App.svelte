@@ -75,7 +75,7 @@ const Beaker = {
   
 
   getVisualState() { // get the visual state of the beaker
-    let state = {fillLevel: this.fillLevel, solidsColourA: "", solidsColourB: "", solutesColour: "snow", solidsVisible: 0};
+    let state = {fillLevel: this.fillLevel, solidsColourA: "", solidsColourB: "", solutesColour: "#FFFAFA", solidsVisible: 0};
 
     if (this.solids.length != 0) {
       state.solidsVisible = 1;
@@ -84,8 +84,13 @@ const Beaker = {
     }
    
     if (this.solutes.length != 0) {
-
-      return;
+      for (let i = 0; i < this.solutes.length; i++) {
+        var r,g,b = 0;
+        r+= Math.pow(parseInt(this.solutes[i].colour.slice(1, 3), 16),2);
+        g+= Math.pow(parseInt(this.solutes[i].colour.slice(3, 5), 16),2);
+        b+= Math.pow(parseInt(this.solutes[i].colour.slice(5, 7), 16),2);
+      }
+      state.solutesColour = RGBToHex(Math.sqrt(r/this.solutes.length), Math.sqrt(g/this.solutes.length), Math.sqrt(b/this.solutes.length));
     }
 
     return state;
@@ -111,6 +116,21 @@ const Beaker = {
     }
     return false;
   }
+  
+  function RGBToHex(r,g,b) {
+  r = r.toString(16);
+  g = g.toString(16);
+  b = b.toString(16);
+
+  if (r.length == 1)
+    r = "0" + r;
+  if (g.length == 1)
+    g = "0" + g;
+  if (b.length == 1)
+    b = "0" + b;
+
+  return "#" + r + g + b;
+}
 
   function saltProperNameToFormula(properName) {
     var stringArray = properName.split(" ");

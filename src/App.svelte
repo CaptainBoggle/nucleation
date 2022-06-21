@@ -26,7 +26,7 @@
       [["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","OrangeRed"],["R","HgO","I","Orange", "mercury(II) oxide"],["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Ivory"],["I","Yellow"],["I","Ivory"]],
       [["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Khaki"],["S","GhostWhite"],["S","GhostWhite"],["I","Ivory"],["I","Ivory"],["I","Ivory"]],
       [["I","DarkGreen"],["S","DarkGreen"],["S","DarkGreen"],["S","DarkGreen"],["I","Green"],["S","Green"],["S","DarkBlue"],["S","DarkGreen"],["I","LightCyan"],["I","CadetBlue"],["I","DarkOrchid"]],
-      [["S","AntiqueWhite"],["S","Yellow"],["S","DarkBrown"],["R","FeI2","S","GhostWhite", "iron(II) iodide"],["I","DarkOrange"],["S","Red"],["S","Red"],["S","IndianRed"],["R","Fe2O3","I","Red", "iron(III) oxide"],["S","Orange"],["I","Peru"]],
+      [["S","AntiqueWhite"],["S","Yellow"],["S","saddlebrown"],["R","FeI2","S","GhostWhite", "iron(II) iodide"],["I","DarkOrange"],["S","Red"],["S","Red"],["S","IndianRed"],["R","Fe2O3","I","Red", "iron(III) oxide"],["S","Orange"],["I","Peru"]],
       [["S","GhostWhite"],["I","Ivory"],["I","Khaki"],["I","Yellow"],["I","Peru"],["I","Ivory"],["S","GhostWhite"],["S","GhostWhite"],["I","Yellow"],["I","Ivory"],["I","Peru"]],
       [["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","GhostWhite"],["S","Yellow"],["S","GhostWhite"],["S","Green"],["S","GhostWhite"],["S","GhostWhite"]]
     ]
@@ -289,10 +289,20 @@ const Beaker = {
         {
           if (dataTable[i][j][0] == "I" || dataTable[i][j][0] == "S") // if the entry starts with I or S, the colour will be at index 1
             {
-              dataTable[i][j][1] = colours[dataTable[i][j][1].toLowerCase()]; // convert
+              if (colours[dataTable[i][j][1].toLowerCase()] != 'undefined'){
+                dataTable[i][j][1] = colours[dataTable[i][j][1].toLowerCase()];
+              }  // convert
+              else{
+                console.log(dataTable[i][j][1].toLowerCase())
+              }
             }
             else { // otherwise it will be at index 3
-              dataTable[i][j][3]=colours[dataTable[i][j][3].toLowerCase()]; // convert
+              if (colours[dataTable[i][j][3].toLowerCase()] != 'undefined'){
+                dataTable[i][j][1] = colours[dataTable[i][j][3].toLowerCase()];
+              }  // convert
+              else{
+                console.log(dataTable[i][j][3].toLowerCase())
+              }
             }
         }
     }

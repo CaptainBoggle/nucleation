@@ -194,29 +194,29 @@ const Beaker = {
   for (let i = 0; i < Constants.cationIndices.length; i++) {
 
     // first extract cation and its charge
-    if (formula.includes("(${Constants.cationIndices[i]})")) { // if there are brackets, there will definitely be a number following
+    if (formula.includes("(${ionSymbol(Constants.cationIndices[i])})")) { // if there are brackets, there will definitely be a number following
       ions[0][0] = Constants.cationIndices[i];
-      ions[0][1] = "+".repeat(formula.replace("(${Constants.cationIndices[i]})", "").charAt(0));
+      ions[0][1] = "+".repeat(formula.replace("(${ionSymbol(Constants.cationIndices[i])})", "").charAt(0));
       break;
     }
-    if (formula.includes(Constants.cationIndices[i])) { // if there are no brackets, there may be no number, so check for that
+    if (formula.includes(ionSymbol(Constants.cationIndices[i]))) { // if there are no brackets, there may be no number, so check for that
       ions[0][0] = Constants.cationIndices[i];
-      ions[0][1] = isNaN(formula.replace(Constants.cationIndices[i], "").charAt(0)) ? "+" : "+".repeat(formula.replace(Constants.cationIndices[i], "").charAt(0)); 
+      ions[0][1] = isNaN(formula.replace(ionSymbol(Constants.cationIndices[i]), "").charAt(0)) ? "+" : "+".repeat(formula.replace(ionSymbol(Constants.cationIndices[i]), "").charAt(0)); 
       break;
     }
   }
   // next extract anion and its charge.
   for (let i = 0; i < Constants.anionIndices.length; i++) {
-    if (formula.includes("(${Constants.anionIndices[i]})")) {
+    if (formula.includes("(${ionSymbol(Constants.anionIndices[i])})")) {
       ions[1][0] = Constants.anionIndices[i];
-      ions[1][1] = "-".repeat(formula.split("(${Constants.anionIndices[i]})")[1].charAt(0));
+      ions[1][1] = "-".repeat(formula.split("(${ionSymbol(Constants.anionIndices[i])})")[1].charAt(0));
       break;
     }
 
-    if (formula.includes(Constants.anionIndices[i])) {
+    if (formula.includes(ionSymbol(Constants.anionIndices[i]))) {
       ions[1][0] = Constants.anionIndices[i];
       formula = formula.concat("1"); // in this case, there will either be a number at the end or nothing, so we append a 1, which will be ignored if there is already a number present, or will be used if there is no number present
-      ions[1][1] = "-".repeat(formula.split(Constants.anionIndices[i])[1].charAt(0)); 
+      ions[1][1] = "-".repeat(formula.split(ionSymbol(Constants.anionIndices[i]))[1].charAt(0)); 
       break;
     }
 

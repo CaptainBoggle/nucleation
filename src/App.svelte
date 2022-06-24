@@ -1,4 +1,5 @@
 <script>
+
   const Constants = {
 		anionIndices: ["F-","Cl-","Br-","I-","OH-","SCN-","NO3-","C2H3O2-","CO3--","SO4--","PO4---"],
 		cationIndices: ["NH4+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+","H+"],
@@ -35,11 +36,24 @@
 const Beaker = {
   solids: [], // solids in the beaker
   solutes: [], // solutes in the beaker
-  fillLevel: 0, // fill level of the beaker
+  filled: false, // is beaker filled
+  inputType: 0, // 0 = formula, 1 = proper name, 2 = common name
+  input: "", // current input  
 
   addSalts() { // add one or two salts to beaker
     for (let i = 0; i < arguments.length; i++) {
       arguments[i].soluble ? this.solids.push(arguments[i]) : this.solutes.push(arguments[i]);
+    }
+  },
+
+
+  addInput() {
+    if (this.inputType == 0) {
+      this.addSalts(reactIons(saltFormulaToIons(this.input)));
+    } else if (this.inputType == 1) {
+      this.addSalts(reactIons(saltFormulaToIons(saltProperNameToFormula(this.input))));
+    } else {
+      this.addSalts(reactIons(saltFormulaToIons(saltProperNameToFormula(saltCommonNameToProperName(this.input)))));
     }
   },
 
@@ -75,7 +89,7 @@ const Beaker = {
   
 
   getVisualState() { // get the visual state of the beaker
-    let state = {fillLevel: this.fillLevel, solidsColourA: "", solidsColourB: "", solutesColour: "#FFFAFA", solidsVisible: 0};
+    let state = {filled: this.filled, solidsColourA: "", solidsColourB: "", solutesColour: "#FFFAFA", solidsVisible: 0};
 
     if (this.solids.length != 0) {
       state.solidsVisible = 1;
@@ -274,48 +288,99 @@ const Beaker = {
 
     return salt;
   }
-  let selectedCation = "Ca++";
-  let selectedAnion = "Cl-";
+
+
+
+  var leftBeaker = new Beaker;
+  var rightBeaker = new Beaker;
+  var bottomBeaker = new Beaker;
 </script>
 
 <main>
-  <h2>Cation</h2>
-  <div class="flex">
-    {#each Constants.cationIndices as cation}
-      <label>
-        <input type="radio" bind:group={selectedCation} value={cation} />
-        {cation}
-      </label>
-    {/each}
-  </div>
-  
-  <h2>Anion</h2>
-  <div class="flex">
-    {#each Constants.anionIndices as anion}
-      <label>
-        <input type="radio" bind:group={selectedAnion} value={anion} />
-        {anion}
-      </label>
-    {/each}
-  </div>
 
-  <h2>Output</h2>
-  <p>
-    {selectedCation} <span style="font-size: 14pt; font-weight: bold;">+</span> {selectedAnion}
-  </p>
-  <div
-    id="rectangle"
-    style="--salt-colour: {reactIons([selectedCation, selectedAnion]).colour}"
-  >
-    <h2 class="verticalcenter">{reactIons([selectedCation, selectedAnion]).formula}</h2>
-    <p class="underCenter">({reactIons([selectedCation, selectedAnion]).proper})</p>
-  </div>
-  <p>
-    soluble = {reactIons([selectedCation, selectedAnion]).soluble}
-  </p>
+  <section class="layout">
+
+
+    <div class="header">
+      <h1>Nucleation</h1>
+    </div>
+
+
+    <div class="left">
+      <select bind:value={leftBeaker.inputType}>
+        <option value={0}>Formula</option>
+        <option value={1}>Proper Name</option>
+        <option value={2}>Common Name</option>
+      </select>
+      <input bind:value={leftBeaker.input}>
+
+      <button on:click={leftBeaker.addInput()}>Set Salt</button>
+
+      <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState.solutesColour}"></div>
+      <p>
+      Solute: {leftBeaker.solutes[0].proper}
+      </p>
+      <p>
+      Solid: {leftBeaker.solids[0].proper}
+      </p>
+
+    </div>
+
+
+    <div class="right">    
+      <select bind:value={rightBeaker.inputType}>
+        <option value={0}>Formula</option>
+        <option value={1}>Proper Name</option>
+        <option value={2}>Common Name</option>
+      </select>
+      <input bind:value={rightBeaker.input}>
+
+      <button on:click={rightBeaker.addInput()}>Set Salt</button>
+
+      <div class="rectangle" style="--solute-colour: {rightBeaker.getVisualState.solutesColour}"></div>
+      <p>
+      Solute: {rightBeaker.solutes[0].proper}
+      </p>
+      <p>
+      Solid: {rightBeaker.solids[0].proper}
+      </p>
+</div>
+
+
+    <div class="bottom">      <div
+      class="rectangle"
+      style="--solute-colour: {bottomBeaker.getVisualState.solutesColour}"></div>
+</div>
+
+
+    <div class="footer">
+      <h2>Felix Montanari - 2022</h2>
+    </div>
+  </section>
 </main>
 
 <style>
+
+.layout {
+  width: 100%;
+
+  display: grid;
+  grid:
+    "header header" 15%
+    "left right" 35%
+    "bottom bottom" 45%
+    "footer footer" 5%
+    / 50% 50%;
+  gap: 8px;
+}
+
+.header { grid-area: header; }
+.left { grid-area: left; }
+.right { grid-area: right; }
+.bottom { grid-area: bottom; }
+.footer { grid-area: footer; }
+
+
   h2 {
     margin-top: 0;
     margin-bottom: 0;
@@ -361,13 +426,13 @@ const Beaker = {
     align-items: center;
   }
 
-  #rectangle {
+  .rectangle {
     width: 200px;
     height: 100px;
     margin: auto;
     border-radius: 8px;
     border: 2px solid black;
-    background-color: var(--salt-colour);
+    background-color: var(--solute-colour);
     font-size: 20pt;
   }
 
@@ -376,4 +441,226 @@ const Beaker = {
       max-width: none;
     }
   }
+
+  #container-left {
+  height: 370px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  top: -20px;
+  width: 248px;
+}
+
+#container-left div { position: absolute; }
+
+.pour {
+  position: absolute;
+  left: 114px;
+  width: 18px;
+  height: 0px;
+  background-color: #edaf32;
+  border-radius: 10px
+}
+
+
+.solid-precipitates {
+  position: absolute;
+  bottom: 8px;
+}
+
+.solid-1, .solid-2, .solid-3, .solid-4, 
+.solid-5, .solid-6, .solid-7, .solid-8, .solid-9, .solid-10, .solid-11, .solid-12, .solid-13, .solid-14, .solid-15, .solid-16, .solid-17, .solid-18, .solid-19, .solid-20, .solid-21, .solid-22, .solid-23, .solid-24, .solid-25, .solid-26, .solid-27, .solid-28, .solid-29, .solid-30, .solid-31, .solid-32, .solid-33, .solid-34, .solid-35, .solid-36 {
+  float: left;
+  position: absolute;
+  z-index: 999;
+  width: 0px;
+  height: 0px;
+  border-radius: 18px;
+  background-color: #fefefe;
+  margin: 9px;
+}
+.solid-1 {
+  top: -70px;
+  left: 60px;
+}
+.solid-2 {
+  top: -70px;
+  left: 80px; 
+}
+.solid-3 {
+  top: -10px;
+  left: 20px; 
+}
+.solid-4 {
+  top: -25px;
+  left: 30px; 
+}
+.solid-5 {
+  top: -10px;
+  left: 40px; 
+}
+.solid-6 {
+  top: -25px;
+  left: 50px; 
+}
+.solid-7 {
+  top: -10px;
+  left: 60px;
+}
+.solid-8 {
+  top: -25px;
+  left: 70px;
+}
+.solid-9 {
+  top: -10px;
+  left: 80px;
+}
+.solid-10 {
+  top: -25px;
+  left: 90px;
+}
+.solid-11 {
+  top: -10px;
+  left: 100px;
+}
+.solid-12 {
+  top: -25px;
+  left: 110px;
+}
+.solid-13 {
+  top: -10px;
+  left: 120px;
+}
+.solid-14 {
+  top: -25px;
+  left: 130px;
+}
+.solid-15 {
+  top: -10px;
+  left: 140px;
+}
+.solid-16 {
+  top: -25px;
+  left: 150px;
+}
+.solid-17 {
+  top: -10px;
+  left: 160px;
+}
+.solid-18 {
+  top: -70px;
+  left: 100px;
+}
+.solid-19 {
+  top: -70px;
+  left: 120px;
+}
+
+.solid-20{
+  top: -85px;
+  left: 70px
+}
+
+.solid-21{
+  top: -40px;
+  left: 40px
+}
+.solid-22{
+  top: -40px;
+  left: 60px
+}
+.solid-23{
+  top: -40px;
+  left: 80px
+}
+.solid-24{
+  top: -40px;
+  left: 100px
+}
+.solid-25{
+  top: -40px;
+  left: 120px
+}
+.solid-26{
+  top: -40px;
+  left: 140px
+}
+.solid-27{
+  top: -85px;
+  left: 90px
+}
+.solid-28{
+  top: -85px;
+  left: 110px
+}
+.solid-29{
+  top: -55px;
+  left: 50px
+}
+.solid-30{
+  top: -55px;
+  left: 70px
+}
+.solid-31{
+  top: -55px;
+  left: 90px
+}
+.solid-32{
+  top: -55px;
+  left: 110px
+}
+.solid-33{
+  top: -55px;
+  left: 130px
+}
+.solid-34{
+  top: -100px;
+  left: 80px
+}
+.solid-35{
+  top: -100px;
+  left: 100px
+}
+.solid-36{
+  top: -115px;
+  left: 90px
+}
+#beaker-left {
+  border: 10px solid #FFF;
+  border-top: 0;
+  border-radius: 0 0 30px 30px;
+  height: 200px;
+  left: 14px;
+  bottom: 0;
+  width: 200px;
+  z-index: 99;
+}
+
+#beaker-left:before,
+#beaker-left:after {
+  border: 10px solid #FFF;
+  border-bottom: 0;
+  border-radius: 30px 30px 0 0;
+  content: '';
+  height: 30px;
+  position: absolute;
+  top: -40px;
+  width: 30px;
+}
+
+#beaker-left:before { left: -50px; }
+#beaker-left:after { right: -50px; }
+
+#liquid-left {
+  background-color: #edaf32;
+  border-radius: 0 0 20px 20px;
+  bottom: 10px;
+  height: 0px;
+  overflow: hidden;
+  width: 200px;
+  z-index: 1;
+  left: 24px;
+}
+
+
 </style>

@@ -300,8 +300,7 @@ const Beaker = {
 </script>
 
 <main>
-$: leftBeaker
-  <section class="layout">
+    <section class="layout">
 
 
     <div class="header">
@@ -321,10 +320,10 @@ $: leftBeaker
 
       <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState.solutesColour}"></div>
       <p>
-      Solute: {leftBeaker.solutes[0]}
+      Solute: {leftBeaker.solutes ? leftBeaker.solutes[0].proper : "None"}
       </p>
       <p>
-      Solid: {leftBeaker.solids}
+      Solid: {leftBeaker.solids ? leftBeaker.solids[0].proper : "None"}
       </p>
 
     </div>

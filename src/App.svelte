@@ -48,6 +48,8 @@ const Beaker = {
 
 
   addInput() {
+    this.solids = [];
+    this.solutes = [];
     if (this.inputType == 0) {
       console.log(this.input);
       console.log(saltFormulaToIons(this.input));
@@ -58,6 +60,7 @@ const Beaker = {
     } else {
       this.addSalts(reactIons(saltFormulaToIons(saltProperNameToFormula(saltCommonNameToProperName(this.input)))));
     }
+    this.input = "";
   },
 
   reactSalts() { // react all salts in beaker
@@ -297,6 +300,8 @@ const Beaker = {
   const leftBeaker = Object.create(Beaker);
   const rightBeaker = Object.create(Beaker);
   const bottomBeaker = Object.create(Beaker);
+  let test = "None"
+  $: test = leftBeaker.solutes[0] ? leftBeaker.solutes[0].proper : "None"
 </script>
 
 <main>
@@ -316,11 +321,11 @@ const Beaker = {
       </select>
       <input bind:value={leftBeaker.input}>
 
-      <button on:click={leftBeaker.addInput()}>Set Salt</button>
+      <button on:click={() => leftBeaker.addInput()}>Set Salt</button>
 
-      <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState.solutesColour}"></div>
+      <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState().solutesColour}"></div>
       <p>
-      Solute: {leftBeaker.solutes[0] ? leftBeaker.solutes[0].proper : "None"}
+      Solute: {test}
       </p>
       <p>
       Solid: {leftBeaker.solids[0] ? leftBeaker.solids[0].proper : "None"}

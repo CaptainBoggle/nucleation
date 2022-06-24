@@ -5,7 +5,7 @@
 		cationIndices: ["NH4+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+","H+"],
 	
 		anionNames: ["fluoride", "chloride", "bromide", "iodide", "hydroxide", "thiocyanate", "nitrate", "acetate", "carbonate", "sulfate", "phosphate"],
-		cationProperNames: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver", "hydrogen"s],
+		cationProperNames: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver", "hydrogen"],
 		cationCommonNames: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese", "ferrous", "cobaltous", "nickelous", "cupric", "zinc", "mercuric", "plumbous", "chromic", "ferric", "silver","hydrogen"],
     reactionTable: [
       [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#ffff00"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],

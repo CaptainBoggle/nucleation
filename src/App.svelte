@@ -5,8 +5,8 @@
 		cationIndices: ["NH4+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+","H+"],
 	
 		anionNames: ["fluoride", "chloride", "bromide", "iodide", "hydroxide", "thiocyanate", "nitrate", "acetate", "carbonate", "sulfate", "phosphate"],
-		cationProperNames: ["ammonium", "hydrogen", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver"],
-		cationCommonNames: ["ammonium", "hydrogen", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese", "ferrous", "cobaltous", "nickelous", "cupric", "zinc", "mercuric", "plumbous", "chromic", "ferric", "silver"],
+		cationProperNames: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver", "hydrogen"s],
+		cationCommonNames: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese", "ferrous", "cobaltous", "nickelous", "cupric", "zinc", "mercuric", "plumbous", "chromic", "ferric", "silver","hydrogen"],
     reactionTable: [
       [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#ffff00"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
       [["S","#f8f8ff"],["S","#ffff00"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
@@ -300,7 +300,7 @@ const Beaker = {
 </script>
 
 <main>
-
+$: leftBeaker
   <section class="layout">
 
 
@@ -321,7 +321,7 @@ const Beaker = {
 
       <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState.solutesColour}"></div>
       <p>
-      Solute: {leftBeaker.solutes}
+      Solute: {leftBeaker.solutes[0]}
       </p>
       <p>
       Solid: {leftBeaker.solids}

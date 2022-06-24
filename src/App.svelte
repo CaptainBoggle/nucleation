@@ -42,7 +42,7 @@ const Beaker = {
 
   addSalts() { // add one or two salts to beaker
     for (let i = 0; i < arguments.length; i++) {
-      arguments[i].soluble ? this.solids.push(arguments[i]) : this.solutes.push(arguments[i]);
+      arguments[i].soluble ? this.solutes.push(arguments[i]) : this.solids.push(arguments[i]);
     }
   },
 

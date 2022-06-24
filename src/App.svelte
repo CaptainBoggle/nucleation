@@ -49,6 +49,9 @@ const Beaker = {
 
   addInput() {
     if (this.inputType == 0) {
+      console.log(this.input);
+      console.log(saltFormulaToIons(this.input));
+      console.log(reactIons(saltFormulaToIons(this.input)));
       this.addSalts(reactIons(saltFormulaToIons(this.input)));
     } else if (this.inputType == 1) {
       this.addSalts(reactIons(saltFormulaToIons(saltProperNameToFormula(this.input))));

@@ -291,9 +291,9 @@ const Beaker = {
 
 
 
-  var leftBeaker = new Beaker;
-  var rightBeaker = new Beaker;
-  var bottomBeaker = new Beaker;
+  const leftBeaker = Object.create(Beaker);
+  const rightBeaker = Object.create(Beaker);
+  const bottomBeaker = Object.create(Beaker);
 </script>
 
 <main>

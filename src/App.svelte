@@ -190,8 +190,8 @@ const Beaker = {
 // formula ::= (("("<cation>")"<number>) | (<cation>[<number>]))(("("<anion>")"<number>) | (<anion>[<number>]))
     
     let ions = [["",""], ["",""]];
-
-  for (let i = 0; i < Constants.cationIndices; i++) {
+  
+  for (let i = 0; i < Constants.cationIndices.length; i++) {
 
     // first extract cation and its charge
     if (formula.includes("(${Constants.cationIndices[i]})")) { // if there are brackets, there will definitely be a number following
@@ -206,7 +206,7 @@ const Beaker = {
     }
   }
   // next extract anion and its charge.
-  for (let i = 0; i < Constants.anionIndices; i++) {
+  for (let i = 0; i < Constants.anionIndices.length; i++) {
     if (formula.includes("(${Constants.anionIndices[i]})")) {
       ions[1][0] = Constants.anionIndices[i];
       ions[1][1] = "-".repeat(formula.split("(${Constants.anionIndices[i]})")[1].charAt(0));

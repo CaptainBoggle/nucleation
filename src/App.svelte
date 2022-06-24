@@ -19,34 +19,19 @@
       [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f0e68c"],["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["R","Al(OH)3","I","#fffff0","aluminium hydroxide"],["S","#f8f8ff"],["I","#fffff0"]],
       [["S","#ffc0cb"],["S","#ffc0cb"],["S","#ffc0cb"],["S","#ffc0cb"],["I","#cd853f"],["I","#fffff0"],["S","#f8f8ff"],["S","#ffc0cb"],["I","#ffc0cb"],["S","#ffc0cb"],["I","#ffc0cb"]],
       [["S","#f8f8ff"],["S","#008000"],["S","#f0e68c"],["S","#f8f8ff"],["I","#9acd32"],["S","#f8f8ff"],["S","#008000"],["S","#9acd32"],["I","#9acd32"],["S","#9acd32"],["I","#f4a460"]],
-      [["S","#fa8072"],["S","#fa8072"],["S","#ee82ee"],["S","#008000"],["I","#0000ff"],["S","#a52a2a"],["S","#ff0000"],["S","#ffc0cb"],["I","#800080"],["S","#ff0000"],["I","#ee82ee"]],
+      [["S","#fa8072"],["S","#fa8072"],["S","#ee82ee"],["S","#008000"],["I","#0000ff"],["S","#a52a2a"],["S","#cf0023"],["S","#ffc0cb"],["I","#800080"],["S","#cf0023"],["I","#ee82ee"]],
       [["S","#008000"],["S","#9acd32"],["S","#0000ff"],["S","#008000"],["I","#9acd32"],["S","#daa520"],["S","#008000"],["S","#00ffff"],["I","#9acd32"],["S","#0000ff"],["I","#9acd32"]],
       [["I","#00ffff"],["S","#0000ff"],["S","#006400"],["R","CuI","I","#fffff0","copper(I) iodide"],["I","#0000ff"],["I","#000000"],["S","#0000ff"],["S","#00008b"],["R","Cu2(OH)2CO3","I","#2e8b57","copper(II) carbonate hydroxide"],["S","#0000ff"],["I","#87ceeb"]],
       [["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#fffff0"],["S","#f8f8ff"],["I","#fffff0"]],
       [["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#ff4500"],["R","HgO","I","#ffa500","mercury(II) oxide"],["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#fffff0"],["I","#ffff00"],["I","#fffff0"]],
       [["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#ffff00"],["I","#fffff0"],["I","#f0e68c"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#fffff0"],["I","#fffff0"],["I","#fffff0"]],
       [["I","#006400"],["S","#006400"],["S","#006400"],["S","#006400"],["I","#008000"],["S","#008000"],["S","#00008b"],["S","#006400"],["I","#e0ffff"],["I","#5f9ea0"],["I","#9932cc"]],
-      [["S","#faebd7"],["S","#ffff00"],["S","#8b4513"],["R","FeI2","S","#f8f8ff","iron(II) iodide"],["I","#ff8c00"],["S","#ff0000"],["S","#ff0000"],["S","#cd5c5c"],["R","Fe2O3","I","#ff0000","iron(III) oxide"],["S","#ffa500"],["I","#cd853f"]],
+      [["S","#faebd7"],["S","#ffff00"],["S","#8b4513"],["R","FeI2","S","#f8f8ff","iron(II) iodide"],["I","#ff8c00"],["S","#cf0023"],["S","#cf0023"],["S","#cd5c5c"],["R","Fe2O3","I","#cf0023","iron(III) oxide"],["S","#ffa500"],["I","#cd853f"]],
       [["S","#f8f8ff"],["I","#fffff0"],["I","#f0e68c"],["I","#ffff00"],["I","#cd853f"],["I","#fffff0"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#ffff00"],["I","#fffff0"],["I","#cd853f"]],
       [["S","#f8f8ff"],["S","#ffff00"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#ffff00"],["S","#f8f8ff"],["S","#008000"],["S","#f8f8ff"],["S","#f8f8ff"]]
     ]
 	};
 
-const Beaker = {
-  solids: [],
-  solutes: [],
-
-  addSalts() { // add any number of salts to beaker
-    for (let i = 0; i < arguments.length; i++) {
-      arguments[i].soluble ? this.solids.push(arguments[i]) : this.solutes.push(arguments[i]);
-    }
-  },
-
-  reactSalts() { // react all salts in beaker
-    return true;
-  }
-
-}
 
   function getHCF(x, y) {
     // find highest common factor of two numbers
@@ -199,67 +184,210 @@ const Beaker = {
   }
 
  
-  let selectedCation = "Ca++";
-  let selectedAnion = "Cl-";
+  let left_selectedCation = "Ca++";
+  let left_selectedAnion = "Cl-";
+  let right_selectedCation = "Ca++";
+  let right_selectedAnion = "Cl-";
+
 </script>
 
 <main>
-  <h2>Cation</h2>
-  <div class="flex">
-    {#each Constants.cationIndices as cation}
-      <label>
-        <input type="radio" bind:group={selectedCation} value={cation} />
-        {cation}
-      </label>
-    {/each}
-  </div>
-  
-  <h2>Anion</h2>
-  <div class="flex">
-    {#each Constants.anionIndices as anion}
-      <label>
-        <input type="radio" bind:group={selectedAnion} value={anion} />
-        {anion}
-      </label>
-    {/each}
-  </div>
+  <section class="layout">
+    <div class="header">Nucleation</div>
+    <div class="leftinput">
+      <h1>Salt 1</h1>
+      <h2>Cation</h2>
+      <div class="flex">
+        <select bind:value={left_selectedCation}>
+          {#each Constants.cationIndices as cation}
+          <option value={cation}>
+            {cation}
+          </option>
+          {/each}
+        </select>
+      </div>
+      
+      <h2>Anion</h2>
+      <div class="flex">
+        <select bind:value={left_selectedAnion}>
+          {#each Constants.anionIndices as anion}
+          <option value={anion}>
+            {anion}
+          </option>
+          {/each}
+        </select>
+      </div>
 
-  <h2>Output</h2>
-  <p>
-    {selectedCation} <span style="font-size: 14pt; font-weight: bold;">+</span> {selectedAnion}
-  </p>
-  <div
-    id="rectangle"
-    style="--salt-colour: {reactIons([selectedCation, selectedAnion]).colour}"
-  >
-    <h2 class="verticalcenter">{reactIons([selectedCation, selectedAnion]).formula}</h2>
-    <p class="underCenter">({reactIons([selectedCation, selectedAnion]).proper})</p>
-  </div>
-  <p>
-    soluble = {reactIons([selectedCation, selectedAnion]).soluble}
-  </p>
+      <h2>Salt Formed</h2>
+      <p>
+        {@html left_selectedCation.replace(/(\d+)/g, '<sub>$1</sub>')} <span style="font-size: 14pt; font-weight: bold;">+</span> {@html left_selectedAnion.replace(/(\d+)/g, '<sub>$1</sub>')}
+      </p>
+      {#if reactIons([left_selectedCation, left_selectedAnion]).soluble}
+      <div
+        class="rectangle"
+        style="--solute-colour: {reactIons([left_selectedCation, left_selectedAnion]).colour}ea">
+        <h2 class="beakerHead">{@html reactIons([left_selectedCation, left_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}</h2>
+        <p class="beakerSub">({reactIons([left_selectedCation, left_selectedAnion]).proper})</p>
+      </div>
+      {:else}
+      <div
+        class="rectangle"
+        style="--solute-colour: #f8f8ff">
+        <h2 class="beakerHead">{@html reactIons([left_selectedCation, left_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}</h2>
+        <p class="beakerSub">({reactIons([left_selectedCation, left_selectedAnion]).proper})</p>
+        <div class="cover"><div class="precipitate-pile" style="--solid-colour: {reactIons([left_selectedCation, left_selectedAnion]).colour}e0"></div></div>
+      </div>
+      {/if}
+    </div>
+
+    <div class="rightinput">
+      <h1>Salt 2</h1>
+      <h2>Cation</h2>
+      <div class="flex">
+        <select bind:value={right_selectedCation}>
+          {#each Constants.cationIndices as cation}
+          <option value={cation}>
+            {cation}
+          </option>
+          {/each}
+        </select>
+      </div>
+      
+      <h2>Anion</h2>
+      <div class="flex">
+        <select bind:value={right_selectedAnion}>
+          {#each Constants.anionIndices as anion}
+          <option value={anion}>
+            {anion}
+          </option>
+          {/each}
+        </select>
+      </div>
+
+      <h2>Salt Formed</h2>
+      <p>
+        {@html right_selectedCation.replace(/(\d+)/g, '<sub>$1</sub>')} <span style="font-size: 14pt; font-weight: bold;">+</span> {@html right_selectedAnion.replace(/(\d+)/g, '<sub>$1</sub>')}
+      </p>
+      {#if reactIons([right_selectedCation, right_selectedAnion]).soluble}
+      <div
+        class="rectangle"
+        style="--solute-colour: {reactIons([right_selectedCation, right_selectedAnion]).colour}ea">
+        <h2 class="beakerHead">{@html reactIons([right_selectedCation, right_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}</h2>
+        <p class="beakerSub">({reactIons([right_selectedCation, right_selectedAnion]).proper})</p>
+      </div>
+      {:else}
+      <div
+        class="rectangle"
+        style="--solute-colour: #f8f8ff">
+        <h2 class="beakerHead">{@html reactIons([right_selectedCation, right_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}</h2>
+        <p class="beakerSub">({reactIons([right_selectedCation, right_selectedAnion]).proper})</p>
+        <div class="cover"><div class="precipitate-pile" style="--solid-colour: {reactIons([right_selectedCation, right_selectedAnion]).colour}e0"></div></div>
+      </div>
+      {/if}
+
+    </div>
+
+
+    <div class="output">
+
+      <h1>Reaction</h1>
+      <p>
+        {@html reactIons([left_selectedCation, left_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')} <span style="font-size: 14pt; font-weight: bold;">+</span> {@html reactIons([right_selectedCation, right_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}
+      </p>
+      
+      <div
+        class="rectangle"
+        style="--solute-colour: {reactIons([right_selectedCation, right_selectedAnion]).colour}"
+      >
+        <h2 class="beakerHead">{@html reactIons([right_selectedCation, right_selectedAnion]).formula.replace(/(\d+)/g, '<sub>$1</sub>')}</h2>
+        <p class="beakerSub">({reactIons([right_selectedCation, right_selectedAnion]).proper})</p>
+
+      </div>
+      <p>
+        soluble = {reactIons([right_selectedCation, right_selectedAnion]).soluble}
+      </p>
+
+
+    </div>
+    <div class="footer">Felix Montanari - 2022</div>
+  </section>
+
+  
 </main>
 
 <style>
+
+.layout {
+
+  display: grid;
+  grid:
+    "header header header" 2fr
+    "leftinput output rightinput" 12fr
+    "footer footer footer" 1fr
+    / 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.header { grid-area: header; }
+.leftinput { grid-area: leftinput; }
+.output { grid-area: output; }
+.rightinput { grid-area: rightinput; }
+.footer { grid-area: footer; }
+
+
+  .precipitate-pile {
+    position: absolute;
+  width: 146px;
+  height: 146px;
+  background: var(--solid-colour);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  border-radius: 24px;
+  margin-top: 80px;
+  margin-left: 27px;
+  }
+  .cover {
+  
+  position: absolute;
+  height: 140px;
+  width: 200px;
+  margin-top: 88px;
+
+  overflow: hidden;
+}
   h2 {
     margin-top: 0;
     margin-bottom: 0;
     clear: both;
   }
-  .verticalcenter {
+  .beakerHead {
     text-align:center;
     position: relative;
-    top: 44%;
+    top: 14%;
     -ms-transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     font-size: 20pt;
+    background: inherit;
+    -webkit-background-clip: text;
+
+  background-clip: text;
+  color: transparent;
+  filter: invert(1);
+
   }
-  .underCenter {
+  .beakerSub {
     text-align:center;
     position: relative;
-    transform: translateY(+170%);
+    transform: translateY(+100%);
     font-size: 10pt;
+    background: inherit;
+    -webkit-background-clip: text;
+
+  background-clip: text;
+  color: transparent;
+  filter: invert(1);
+
   }
   .flex {
     display: flex;
@@ -286,13 +414,13 @@ const Beaker = {
     align-items: center;
   }
 
-  #rectangle {
+  .rectangle {
     width: 200px;
-    height: 100px;
+    height: 300px;
     margin: auto;
     border-radius: 8px;
     border: 2px solid black;
-    background-color: var(--salt-colour);
+    background-color: var(--solute-colour);
     font-size: 20pt;
   }
 

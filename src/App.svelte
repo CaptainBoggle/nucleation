@@ -318,10 +318,10 @@ const Beaker = {
 
       <div class="rectangle" style="--solute-colour: {leftBeaker.getVisualState.solutesColour}"></div>
       <p>
-      Solute: {leftBeaker.solutes[0].proper}
+      Solute: {leftBeaker.solutes[0].proper || "None"}
       </p>
       <p>
-      Solid: {leftBeaker.solids[0].proper}
+      Solid: {leftBeaker.solids[0].proper || "None"}
       </p>
 
     </div>

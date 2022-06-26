@@ -308,12 +308,17 @@ REACTION_TABLE: [
         </select>
       </div>
 
-      <h2>Salt Formed</h2>
-      <p>
-        {@html S}{@html subs(leftSelectedCation)}
-        <span style="font-size: 14pt; font-weight: bold;">+</span>
-        {@html subs(leftSelectedAnion)}{@html S}
-      </p>
+      <!--
+        FERLIX DO YOU NEED THIS SHIT??
+      <div>
+        <h2>Salt Formed</h2>
+        <p>
+          {@html S}{@html subs(leftSelectedCation)}
+          <span style="font-size: 14pt; font-weight: bold;">+</span>
+          {@html subs(leftSelectedAnion)}{@html S}
+        </p>
+      </div>
+      -->
       {#if leftSalt.soluble}
         <div class="rectangle" style="--solute-colour: {leftSalt.colour}ea">
           <h2 class="beakerHead">
@@ -361,12 +366,17 @@ REACTION_TABLE: [
         </select>
       </div>
 
-      <h2>Salt Formed</h2>
-      <p>
-        {@html S}{@html subs(rightSelectedCation)}
-        <span style="font-size: 14pt; font-weight: bold;">+</span>
-        {@html subs(rightSelectedAnion)}{@html S}
-      </p>
+      <!--
+        FERLIX DO YOU NEED THIS
+      <div>
+        <h2>Salt Formed</h2>
+        <p>
+          {@html S}{@html subs(rightSelectedCation)}
+          <span style="font-size: 14pt; font-weight: bold;">+</span>
+          {@html subs(rightSelectedAnion)}{@html S}
+        </p>
+      </div>
+      -->
       {#if rightSalt.soluble}
         <div class="rectangle" style="--solute-colour: {rightSalt.colour}ea">
           <h2 class="beakerHead">
@@ -498,6 +508,8 @@ REACTION_TABLE: [
     font-size: 40pt;
     font-weight: 500;
     grid-area: header;
+    background-color: aliceblue;
+    height: 70px;
   }
   .leftinput {
     grid-area: leftinput;
@@ -556,7 +568,11 @@ REACTION_TABLE: [
 
     overflow: hidden;
   }
+  h1 {
+    margin-bottom: 4px;
+  }
   h2 {
+    font-size: larger;
     margin-top: 0;
     margin-bottom: 0;
     clear: both;

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "sirv-cli": "^2.0.2",
+    "svelecte": "^3.8.0",
     "svelte-csv": "^1.2.8",
     "sveltestrap": "^5.9.0"
   }

@@ -506,13 +506,7 @@
     position: absolute;
     height: 230px;
     width: 400px;
-<<<<<<< HEAD
-    margin-top: 291px;
-    transform: translateY(-42.3%);
-=======
-    margin-top: 298px;
-
->>>>>>> origin/main
+    margin-top: 294px;
     overflow: hidden;
   }
   h1 {

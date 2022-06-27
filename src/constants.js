@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = { 
+  // constants
 
   ANION_INDICES: ['F-', 'Cl-', 'Br-', 'I-', 'OH-', 'SCN-', 'NO3-', 'C2H3O2-', 'CO3--', 'SO4--', 'PO4---'],
   CATION_INDICES: ['NH4+', 'Li+', 'Na+', 'K+', 'Be++', 'Mg++', 'Ca++', 'Sr++', 'Ba++', 'Al+++', 'Mn++', 'Fe++', 'Co++', 'Ni++', 'Cu++', 'Zn++', 'Hg++', 'Pb++', 'Cr+++', 'Fe+++', 'Ag+', 'H+'],

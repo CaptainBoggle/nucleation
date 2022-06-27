@@ -1,18 +1,18 @@
 <script>
-  import  utils from './utils';
-  import CONSTANTS from './constants';
+  import  utils from './utils'; // import the utils.js file
+  import CONSTANTS from './constants'; // import the constants.js file
 
 
-  function saltProperNameToFormula(properName) {
-    // 
+  function saltProperNameToFormula(properName) { 
+    // convert the proper name of a salt into a formula
     var stringArray = properName.split(" ");
     var cation =
       CONSTANTS.CATION_INDICES[
-        CONSTANTS.CATION_PROPER_NAMES.indexOf(stringArray[0])
+        CONSTANTS.CATION_PROPER_NAMES.indexOf(stringArray[0]) // get the index of the cation
       ];
     var anion =
-      CONSTANTS.ANION_INDICES[CONSTANTS.ANION_NAMES.indexOf(stringArray[1])];
-    var formulaArray = [
+      CONSTANTS.ANION_INDICES[CONSTANTS.ANION_NAMES.indexOf(stringArray[1])]; // get the index of the anion
+    var formulaArray = [ // create an array to store the formula
       "",
       ionSymbol(cation),
       "",
@@ -22,30 +22,30 @@
       "",
       "",
     ];
-    var HCF = utils.getHCF(ionCharge(cation), -ionCharge(anion));
-    if (-ionCharge(anion) != HCF) {
-      formulaArray[3] = -ionCharge(anion) / HCF;
-      if (
-        formulaArray[1].length > 2 ||
+    var HCF = utils.getHCF(ionCharge(cation), -ionCharge(anion)); // get the HCF of the cation and anion charges
+    if (-ionCharge(anion) != HCF) { 
+      formulaArray[3] = -ionCharge(anion) / HCF; //
+      if ( // check if brackets are necessary (polyatomic ion with multiple charges)
+        formulaArray[1].length > 2 || 
         (formulaArray[1].length > 1 &&
           formulaArray[1].toUpperCase() == formulaArray[1])
-      ) {
+      ) { // add brackets if necessary
         formulaArray[0] = "(";
         formulaArray[2] = ")";
       }
     }
-    if (ionCharge(cation) != HCF) {
-      formulaArray[7] = ionCharge(cation) / HCF;
-      if (
+    if (ionCharge(cation) != HCF) { 
+      formulaArray[7] = ionCharge(cation) / HCF; // 
+      if ( // check if brackets are necessary (polyatomic ion with multiple charges)
         formulaArray[5].length > 2 ||
         (formulaArray[5].length > 1 &&
           formulaArray[5].toUpperCase() == formulaArray[5])
-      ) {
+      ) { // add brackets if necessary
         formulaArray[4] = "(";
         formulaArray[6] = ")";
       }
     }
-    return formulaArray.join("");
+    return formulaArray.join(""); // join the formula array into a string
   }
 
   function ionCharge(ionName) {
@@ -69,6 +69,7 @@
   }
 
   function reactIons(ions) {
+    // takes an array of ion names and returns the formula of the resulting salt.
       let [ion1, ion2] = ions;
 
     var salt = {}; // create a salt object to store the new salt
@@ -95,7 +96,7 @@
       // handle special cases where the general rules do not apply, so data is hardcoded
       // example ["R","Al(OH)3","I","Ivory","aluminium(III) hydroxide"]
       [salt.proper, salt.formula, salt.soluble, salt.colour] = data;
-      salt.soluble = salt.solube === "S";
+      salt.soluble = salt.solube == "S"; // convert the soluble string to a boolean
     } else {
       // handle general case
       // example ["I","Ivory"]
@@ -103,8 +104,8 @@
         CONSTANTS.CATION_PROPER_NAMES[ionGridRef(cation)] +
         " " +
         CONSTANTS.ANION_NAMES[ionGridRef(anion)]; // construct the salt's proper name
-      salt.formula = saltProperNameToFormula(salt.proper);
-      salt.soluble = data[0] == "S";
+      salt.formula = saltProperNameToFormula(salt.proper); // construct the salt's formula
+      salt.soluble = data[0] == "S"; // convert the soluble string to a boolean
       salt.colour = data[1];
     }
 
@@ -167,9 +168,9 @@
   let rightSelectedCation = "Be++";
   let rightSelectedAnion = "SO4--";
 
-  $: leftSalt = reactIons([leftSelectedCation, leftSelectedAnion]);
-  $: rightSalt = reactIons([rightSelectedCation, rightSelectedAnion]);
-  $: reactedSalts = reactSalts(
+  $: leftSalt = reactIons([leftSelectedCation, leftSelectedAnion]); // react the ions and store the result in the leftSalt variable
+  $: rightSalt = reactIons([rightSelectedCation, rightSelectedAnion]); // react the ions and store the result in the rightSalt variable
+  $: reactedSalts = reactSalts( // react the salts and store the result in the reactedSalts variable
     [leftSelectedCation, leftSelectedAnion],
     [rightSelectedCation, rightSelectedAnion]
   );
@@ -206,18 +207,6 @@
           {/each}
         </select>
       </div>
-
-      <!--
-        debug stuff
-      <div>
-        <h2>Salt Formed</h2>
-        <p>
-          {@html S}{@html subs(leftSelectedCation)}
-          <span style="font-size: 14pt; font-weight: bold;">+</span>
-          {@html subs(leftSelectedAnion)}{@html S}
-        </p>
-      </div>
-      -->
       {#if leftSalt.soluble}
         <div class="rectangle" style="--solute-colour: {leftSalt.colour}ea">
           <h2 class="beakerHead">
@@ -265,17 +254,6 @@
         </select>
       </div>
 
-      <!--
-        debug stuff
-      <div>
-        <h2>Salt Formed</h2>
-        <p>
-          {@html S}{@html subs(rightSelectedCation)}
-          <span style="font-size: 14pt; font-weight: bold;">+</span>
-          {@html subs(rightSelectedAnion)}{@html S}
-        </p>
-      </div>
-      -->
       {#if rightSalt.soluble}
         <div class="rectangle" style="--solute-colour: {rightSalt.colour}ea">
           <h2 class="beakerHead">

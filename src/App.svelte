@@ -578,7 +578,7 @@ REACTION_TABLE: [
   h2 {
     font-size: larger;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     clear: both;
   }
   .beakerHead {

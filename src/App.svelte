@@ -4,6 +4,7 @@
 
 
   function saltProperNameToFormula(properName) {
+    // 
     var stringArray = properName.split(" ");
     var cation =
       CONSTANTS.CATION_INDICES[
@@ -47,46 +48,6 @@
     return formulaArray.join("");
   }
 
-  function saltFormulaToIons(formula) {
-    // convert formula into two ions
-    // EBNF for formula:
-    // number ::= 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-    // cation ::= "NH4" | "H" | "Li" etc
-    // anion ::= "F" | "Cl" | "Br" etc
-    // formula ::= (("("<cation>")"<number>) | (<cation>[<number>]))(("("<anion>")"<number>) | (<anion>[<number>]))
-
-    let ions = [
-      ["", ""],
-      ["", ""],
-    ];
-
-    for (let i = 0; i < CONSTANTS.CATION_INDICES; i++) {
-      // first extract cation and its charge
-      if (formula.includes("(${CONSTANTS.CATION_INDICES[i]})")) {
-        // if there are brackets, there will definitely be a number following
-        ions[0][0] = CONSTANTS.CATION_INDICES[i];
-        ions[0][1] = "+".repeat(
-          formula.replace("(${CONSTANTS.CATION_INDICES[i]})", "").charAt(0)
-        );
-        break;
-      } else if (formula.includes(CONSTANTS.CATION_INDICES[i])) {
-        // if there are no brackets, there may be no number, so check for that
-        ions[0][0] = CONSTANTS.CATION_INDICES[i];
-        ions[0][1] = isNaN(
-          formula.replace(CONSTANTS.CATION_INDICES[i], "").charAt(0)
-        )
-          ? "+"
-          : "+".repeat(
-              formula.replace(CONSTANTS.CATION_INDICES[i], "").charAt(0)
-            );
-        break;
-      }
-    }
-
-    // next extract anion and its charge.
-
-    return [ions[0].join(""), ions[1].join("")];
-  }
   function ionCharge(ionName) {
     // returns the charge of an ion as an integer given the shorthand name string.
     return (

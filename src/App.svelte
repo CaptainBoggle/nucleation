@@ -497,7 +497,7 @@ REACTION_TABLE: [
   .layout {
     display: grid;
     grid:
-      "header header header" 2fr
+      "header header header" 1fr
       "leftinput output rightinput" 12fr
       "footer footer footer" 1fr
       / 1fr 1fr 1fr;

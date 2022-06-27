@@ -510,6 +510,7 @@ REACTION_TABLE: [
     grid-area: header;
     background-color: aliceblue;
     height: 70px;
+    border-radius: 5px;
   }
   .leftinput {
     grid-area: leftinput;

@@ -24,9 +24,12 @@ module.exports = {
     'linebreak-style': 0,
     'comma-dangle': 0,
     'max-len': 0,
+    'no-restricted-syntax': 0, // This one is a bitch because it prefers array.forEach over for of/in which is actually more performant.
+    'no-param-reassign': 0,
     // Unicorn Disables.
     'unicorn/prefer-module': 0,
     'unicorn/no-null': 0,
     'unicorn/filename-case': 0,
+    'unicorn/prevent-abbreviations': 0,
   },
 };

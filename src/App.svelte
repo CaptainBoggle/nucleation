@@ -1,69 +1,7 @@
 <script>
-  const CONSTANTS = {
+  import  utils from './utils';
+  import CONSTANTS from './constants';
 
-    ANION_INDICES: ["F-","Cl-","Br-","I-","OH-","SCN-","NO3-","C2H3O2-","CO3--","SO4--","PO4---"],
-    CATION_INDICES: ["NH4+","Li+","Na+","K+","Be++","Mg++","Ca++","Sr++","Ba++","Al+++","Mn++","Fe++","Co++","Ni++","Cu++","Zn++","Hg++","Pb++","Cr+++","Fe+++","Ag+","H+"],
-
-    ANION_NAMES: ["fluoride", "chloride", "bromide", "iodide", "hydroxide", "thiocyanate", "nitrate", "acetate", "carbonate", "sulfate", "phosphate"],
-    CATION_PROPER_NAMES: ["ammonium", "lithium", "sodium", "potassium", "beryllium", "magnesium", "calcium", "strontium", "barium", "aluminium", "manganese(II)", "iron(II)", "cobalt(II)", "nickel(II)", "copper(II)", "zinc(II)", "mercury(II)", "lead(II)", "chromium(III)", "iron(III)", "silver", "hydrogen"],
-      
-    REACTION_TABLE: [
-      [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#edbf18"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
-      [["S","#f8f8ff"],["S","#edbf18"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
-      [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
-      [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"]],
-      [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["S","#f8f8ff"],["I","#e3e3ca"]],
-      [["I","#87ceeb"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#e3e3ca"],["I","#e3e3ca"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#87ceeb"],["I","#e3e3ca"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#e3e3ca"],["I","#e3e3ca"]],
-      [["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f0e68c"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["R","Al(OH)3","I","#e3e3ca","aluminium hydroxide"],["S","#f8f8ff"],["I","#e3e3ca"]],
-      [["S","#ffc0cb"],["S","#ffc0cb"],["S","#ffc0cb"],["S","#ffc0cb"],["I","#cd853f"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#ffc0cb"],["I","#ffc0cb"],["S","#ffc0cb"],["I","#ffc0cb"]],
-      [["S","#f8f8ff"],["S","#008000"],["S","#f0e68c"],["S","#f8f8ff"],["I","#9acd32"],["S","#f8f8ff"],["S","#008000"],["S","#9acd32"],["I","#9acd32"],["S","#9acd32"],["I","#f4a460"]],
-      [["S","#fa8072"],["S","#fa8072"],["S","#ee82ee"],["S","#008000"],["I","#0000ff"],["S","#a52a2a"],["S","#cf0023"],["S","#ffc0cb"],["I","#800080"],["S","#cf0023"],["I","#ee82ee"]],
-      [["S","#008000"],["S","#9acd32"],["S","#0000ff"],["S","#008000"],["I","#9acd32"],["S","#daa520"],["S","#008000"],["S","#00ffff"],["I","#9acd32"],["S","#0000ff"],["I","#9acd32"]],
-      [["I","#00ffff"],["S","#0000ff"],["S","#006400"],["R","CuI","I","#e3e3ca","copper(I) iodide"],["I","#0000ff"],["I","#000000"],["S","#0000ff"],["S","#00008b"],["R","Cu2(OH)2CO3","I","#2e8b57","copper(II) carbonate hydroxide"],["S","#0000ff"],["I","#87ceeb"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["S","#f8f8ff"],["I","#e3e3ca"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#ff4500"],["R","HgO","I","#ffa500","mercury(II) oxide"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#edbf18"],["I","#e3e3ca"]],
-      [["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#edbf18"],["I","#e3e3ca"],["I","#f0e68c"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#e3e3ca"],["I","#e3e3ca"],["I","#e3e3ca"]],
-      [["I","#006400"],["S","#006400"],["S","#006400"],["S","#006400"],["I","#008000"],["S","#008000"],["S","#00008b"],["S","#006400"],["I","#e0ffff"],["I","#5f9ea0"],["I","#9932cc"]],
-      [["S","#faebd7"],["S","#edbf18"],["S","#8b4513"],["R","FeI2","S","#f8f8ff","iron(II) iodide"],["I","#ff8c00"],["S","#cf0023"],["S","#cf0023"],["S","#cd5c5c"],["R","Fe2O3","I","#cf0023","iron(III) oxide"],["S","#ffa500"],["I","#cd853f"]],
-      [["S","#f8f8ff"],["I","#e3e3ca"],["I","#f0e68c"],["I","#edbf18"],["I","#cd853f"],["I","#e3e3ca"],["S","#f8f8ff"],["S","#f8f8ff"],["I","#edbf18"],["I","#e3e3ca"],["I","#cd853f"]],
-      [["S","#f8f8ff"],["S","#edbf18"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#f8f8ff"],["S","#edbf18"],["S","#f8f8ff"],["S","#008000"],["S","#f8f8ff"],["S","#f8f8ff"]]
-    ]
-  };
-
-  function RGBToHex(r, g, b) {
-    r = Math.round(r).toString(16);
-    g = Math.round(g).toString(16);
-    b = Math.round(b).toString(16);
-    if (r.length == 1) r = "0" + r;
-    if (g.length == 1) g = "0" + g;
-    if (b.length == 1) b = "0" + b;
-    return "#" + r + g + b;
-  }
-
-  function mixHexColours() {
-    var r = 0;
-    var g = 0;
-    var b = 0;
-    for (let i = 0; i < arguments.length; i++) {
-      r += Math.pow(parseInt(arguments[i].slice(1, 3), 16), 2);
-      g += Math.pow(parseInt(arguments[i].slice(3, 5), 16), 2);
-      b += Math.pow(parseInt(arguments[i].slice(5, 7), 16), 2);
-    }
-    return RGBToHex(
-      Math.sqrt(r / arguments.length),
-      Math.sqrt(g / arguments.length),
-      Math.sqrt(b / arguments.length)
-    );
-  }
-
-  function getHCF(x, y) {
-    // find highest common factor of two numbers
-    if (y === 0) return x; // if y is zero then x is the HCF
-    return getHCF(y, x % y); // otherwise, the HCF is the HCF of y and the remainder of x divided by y
-  }
 
   function saltProperNameToFormula(properName) {
     var stringArray = properName.split(" ");
@@ -83,7 +21,7 @@
       "",
       "",
     ];
-    var HCF = getHCF(ionCharge(cation), -ionCharge(anion));
+    var HCF = utils.getHCF(ionCharge(cation), -ionCharge(anion));
     if (-ionCharge(anion) != HCF) {
       formulaArray[3] = -ionCharge(anion) / HCF;
       if (
@@ -171,8 +109,7 @@
   }
 
   function reactIons(ions) {
-    let ion1 = ions[0];
-    let ion2 = ions[1];
+      let [ion1, ion2] = ions;
 
     var salt = {}; // create a salt object to store the new salt
     var cation;
@@ -197,10 +134,8 @@
     if (data[0] == "R") {
       // handle special cases where the general rules do not apply, so data is hardcoded
       // example ["R","Al(OH)3","I","Ivory","aluminium(III) hydroxide"]
-      salt.proper = data[4];
-      salt.formula = data[1];
-      salt.soluble = data[2] == "S";
-      salt.colour = data[3];
+      [salt.proper, salt.formula, salt.soluble, salt.colour] = data;
+      salt.soluble = salt.solube === "S";
     } else {
       // handle general case
       // example ["I","Ivory"]
@@ -236,7 +171,7 @@
           1,
           ionPair1,
           ionPair2,
-          mixHexColours(ionPair1.colour, ionPair2.colour),
+          utils.mixHexColours(ionPair1.colour, ionPair2.colour),
         ];
       } else if (switchedIonPair1.soluble != switchedIonPair2.soluble) {
         // this is equivalent to XOR, so this is true if and only if one product is solid
@@ -252,7 +187,7 @@
           3,
           switchedIonPair1,
           switchedIonPair2,
-          mixHexColours(switchedIonPair1.colour, switchedIonPair2.colour),
+          utils.mixHexColours(switchedIonPair1.colour, switchedIonPair2.colour),
         ];
       }
     } else {
@@ -266,6 +201,7 @@
     return string.replace(/(\d+)/g, "<sub>$1</sub>");
   }
 
+  // Defaults.
   let leftSelectedCation = "Ba++";
   let leftSelectedAnion = "OH-";
   let rightSelectedCation = "Be++";
@@ -571,7 +507,7 @@
     position: absolute;
     height: 230px;
     width: 400px;
-    margin-top: 298px;
+    margin-top: 291px;
     transform: translateY(-42.3%);
     overflow: hidden;
   }

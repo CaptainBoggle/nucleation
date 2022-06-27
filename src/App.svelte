@@ -497,7 +497,7 @@ REACTION_TABLE: [
   .layout {
     display: grid;
     grid:
-      "header header header" 2fr
+      "header header header" 1fr
       "leftinput output rightinput" 12fr
       "footer footer footer" 1fr
       / 1fr 1fr 1fr;
@@ -509,8 +509,11 @@ REACTION_TABLE: [
     font-weight: 500;
     grid-area: header;
     background-color: aliceblue;
-    height: 70px;
-    border-radius: 5px;
+    height: 68px;
+    width: 282px;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 10px;
   }
   .leftinput {
     grid-area: leftinput;

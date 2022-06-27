@@ -424,7 +424,7 @@
     position: absolute;
     height: 140px;
     width: 200px;
-    margin-top: 88px;
+    margin-top: 90px;
 
     overflow: hidden;
   }
@@ -445,7 +445,7 @@
     position: absolute;
     height: 230px;
     width: 400px;
-    margin-top: 294px;
+    margin-top: 300px;
     overflow: hidden;
   }
   h1 {

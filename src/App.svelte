@@ -309,7 +309,7 @@ REACTION_TABLE: [
       </div>
 
       <!--
-        FERLIX DO YOU NEED THIS SHIT??
+        debug stuff
       <div>
         <h2>Salt Formed</h2>
         <p>
@@ -367,7 +367,7 @@ REACTION_TABLE: [
       </div>
 
       <!--
-        FERLIX DO YOU NEED THIS
+        debug stuff
       <div>
         <h2>Salt Formed</h2>
         <p>
@@ -578,7 +578,7 @@ REACTION_TABLE: [
   h2 {
     font-size: larger;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 4px;
     clear: both;
   }
   .beakerHead {

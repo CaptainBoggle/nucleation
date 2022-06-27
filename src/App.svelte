@@ -47,7 +47,7 @@
     return formulaArray.join("");
   }
 
-  /* function saltFormulaToIons(formula) {
+  function saltFormulaToIons(formula) {
     // convert formula into two ions
     // EBNF for formula:
     // number ::= 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
@@ -86,8 +86,7 @@
     // next extract anion and its charge.
 
     return [ions[0].join(""), ions[1].join("")];
-  } */
-
+  }
   function ionCharge(ionName) {
     // returns the charge of an ion as an integer given the shorthand name string.
     return (
@@ -450,8 +449,8 @@
     background-color: aliceblue;
     height: 68px;
     width: 282px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left:auto;
+    margin-right:auto;
     border-radius: 10px;
   }
   .leftinput {
@@ -467,7 +466,7 @@
     position: static;
     bottom: 0;
     width: 100%;
-    height: 2.5rem;
+    height: 2.5rem; /* Footer height */
     grid-area: footer;
   }
 
@@ -507,8 +506,13 @@
     position: absolute;
     height: 230px;
     width: 400px;
+<<<<<<< HEAD
     margin-top: 291px;
     transform: translateY(-42.3%);
+=======
+    margin-top: 298px;
+
+>>>>>>> origin/main
     overflow: hidden;
   }
   h1 {
@@ -643,7 +647,7 @@
 
   #centralRectangle {
     width: 400px;
-    height: 500px;
+    height: 600px;
     margin: auto;
     border-radius: 8px;
     border: 2px solid black;

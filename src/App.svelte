@@ -569,7 +569,7 @@ REACTION_TABLE: [
     height: 230px;
     width: 400px;
     margin-top: 298px;
-
+    transform: translateY(-42.3%);
     overflow: hidden;
   }
   h1 {
@@ -704,7 +704,7 @@ REACTION_TABLE: [
 
   #centralRectangle {
     width: 400px;
-    height: 600px;
+    height: 500px;
     margin: auto;
     border-radius: 8px;
     border: 2px solid black;

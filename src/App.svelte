@@ -447,7 +447,7 @@
     position: absolute;
     height: 230px;
     width: 400px;
-    margin-top: 300px;
+    margin-top: 294px;
     overflow: hidden;
   }
   h1 {

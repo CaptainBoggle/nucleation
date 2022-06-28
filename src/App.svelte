@@ -379,6 +379,8 @@
       "footer footer footer" 1fr
       / 1fr 1fr 1fr;
     gap: 8px;
+    min-width: 1280px;
+    min-height: 720px;
   }
 
   .header {
